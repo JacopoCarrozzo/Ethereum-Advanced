@@ -60,7 +60,7 @@ describe("Local tests (Hardhat Network)", function () {
     const cost = await nft.getMintingCost();
     await expect(
       nft.requestRandomNumber({ value: cost - ethers.parseEther("0.0001") })
-    ).to.be.revertedWith("Ether inviato insufficiente");
+    ).to.be.revertedWith("Insufficient Ether Sent");
   });
 
   it("Should revert if max supply is reached", async () => {
@@ -72,7 +72,7 @@ describe("Local tests (Hardhat Network)", function () {
     }
     await expect(
       nft.requestRandomNumber({ value: cost, gasLimit: 5_000_000 })
-    ).to.be.revertedWith("Raggiunta la fornitura massima di NFT");
+    ).to.be.revertedWith("Maximum NFT supply reached");
   });
 
   it("Should allow owner to set new minting cost", async () => {
@@ -178,7 +178,7 @@ describe("Local tests (Hardhat Network)", function () {
     console.log(`Iteration ${i}: fulfill gas `, fulfillRcpt!.gasUsed.toString());
 
 
-    const [ , description, city ] = await nft.getTokenMetadata(tid);
+    const [ description, city ] = await nft.getTokenMetadata(tid);
     console.log(`Iteration ${i}: city = ${city}`);
 
     expect(city).to.equal(cities[i]);
