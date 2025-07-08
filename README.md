@@ -1,31 +1,21 @@
 # Ethereum Advanced - Random Number Generation for NFT Creation
 
-## Descrizione del progetto
+## Project Description
 
-Questo progetto è una soluzione basata su Ethereum che utilizza il **Chainlink VRF** (Verifiable Random Function) per generare numeri casuali in modo sicuro e verificabile. Questi numeri casuali vengono utilizzati per creare **NFT** (Token Non Fungibili) unici, ciascuno con un attributo basato sul numero casuale generato, come ad esempio una **città**.
+This project is an Ethereum-based solution that uses **Chainlink VRF** (Verifiable Random Function) to generate random numbers in a secure and verifiable way. These random numbers are used to create unique **NFTs** (Non-Fungible Tokens), each with an attribute based on the generated random number, such as a **city**.
 
-Il contratto smart sfrutta i numeri casuali per assegnare città ai NFT generati, permettendo la creazione di una collezione unica di NFT con attributi differenti basati su numeri casuali verificabili sulla blockchain.
+The smart contract uses the random numbers to assign cities to the generated NFTs, allowing the creation of a unique collection of NFTs with different attributes based on random numbers verifiable on the blockchain.
 
-## Funzionalità
+## Features
 
-- **Generazione di numeri casuali** sicuri e verificabili tramite Chainlink VRF.
-- Creazione di **NFT unici** con attributi basati sui numeri casuali.
-- **Controllo sulla supply** degli NFT e possibilità per il proprietario del contratto di aggiornare il costo di minting e la supply massima.
-- **Compatibilità con Hardhat** per il testing locale.
+- **Secure and verifiable random number generation** via Chainlink VRF.
+- Creation of unique **NFTs** with attributes based on random numbers.
+- **Control over the supply** of NFTs and the ability for the contract owner to update the minting cost and maximum supply.
+- **Hardhat compatibility** for local testing.
 
-## Come funziona
+## How it works
 
-1. **Minting di un NFT**: l'utente paga una piccola quota di Ether e il contratto genera un numero casuale tramite Chainlink VRF.
-2. **Attribuzione dell'attributo**: il numero casuale viene utilizzato per determinare un attributo unico dell'NFT, come una **città**.
-3. **Generazione del Token**: l'NFT viene creato e un URI di metadati viene assegnato per fornire informazioni come il nome, la descrizione e l'attributo specifico (ad esempio, città).
-4. **Gestione della Supply**: l'owner del contratto può aggiornare il costo di minting e la supply massima degli NFT.
-
-## Installazione
-
-Segui questi passaggi per eseguire il progetto localmente:
-
-1. **Clona il repository**:
-
-   ```bash
-   git clone https://github.com/JacopoCarrozzo/Ethereum-Advanced.git
-   cd Ethereum-Advanced
+1. **NFT Mining**: The user pays a small amount of Ether and the contract generates a random number via Chainlink VRF.
+2. **Attribute Assignment**: The random number is used to determine a unique attribute of the NFT, such as a **city**.
+3. **Token Generation**: The NFT is created and a metadata URI is assigned to provide information such as the name, description, and specific attribute (e.g., city).
+4. **Supply Management**: The contract owner can update the minting cost and maximum supply of NFTs.
