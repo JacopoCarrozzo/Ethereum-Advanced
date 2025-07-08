@@ -108,7 +108,7 @@ contract NFTcontract is ERC721, VRFConsumerBaseV2Plus {
 
     function requestRandomNumber() public payable {
         require(msg.value >= mintingCost, "Ether inviato insufficiente");
-        require(_tokenIdCounter.current() <= maxSupply, "Raggiunta la fornitura massima di NFT");
+        require(_tokenIdCounter.current() <= maxSupply, "Maximum NFT supply reached");
 
 
         uint256 currentTokenId = _tokenIdCounter.current();
@@ -117,7 +117,7 @@ contract NFTcontract is ERC721, VRFConsumerBaseV2Plus {
         _randomNumbers[currentTokenId] = UNSET;
 
         uint256 requestId;
-    try s_vrfCoordinator.requestRandomWords(
+        try s_vrfCoordinator.requestRandomWords(
         VRFV2PlusClient.RandomWordsRequest({
             keyHash: s_keyHash,
             subId: s_subscriptionId,
@@ -152,9 +152,9 @@ contract NFTcontract is ERC721, VRFConsumerBaseV2Plus {
 
 
     function fulfillRandomWords(uint256 requestId, uint256[] calldata randomWords) internal override{
-        require(_requestIdToTokenId[requestId] > 0, "Richiesta non valida ");
-        require(!_requestIdFulfilled[requestId], "Richiesta eseguita");
-        require(randomWords.length > 0, "Nessun numero casuale ricevuto");
+        require(_requestIdToTokenId[requestId] > 0, "Invalid request ");
+        require(!_requestIdFulfilled[requestId], "Request fulfilled");
+        require(randomWords.length > 0, "No random number received");
 
         uint256 tokenId = _requestIdToTokenId[requestId];
         uint256 randomNumber = randomWords[0] % 25;
@@ -193,29 +193,29 @@ contract NFTcontract is ERC721, VRFConsumerBaseV2Plus {
 
     function tokenURI (uint256 tokenId) public view override returns (string memory) {
         if (_ownerOf(tokenId) == address(0)) {revert("Token non esistente"); }
-        require (_randomNumbers[tokenId] != UNSET, "Metadati non ancora generati");
+        require (_randomNumbers[tokenId] != UNSET, "Metadata not yet generated");
         return _tokenURIs[tokenId];
     }
 
     function getRandomNumber(uint256 tokenId) public view returns (uint256) {
         if (_ownerOf(tokenId) == address(0)) revert("Token non esistente");
-       require(_randomNumbers[tokenId] != UNSET, "Numero non ancora generato");
+       require(_randomNumbers[tokenId] != UNSET, "Number not yet generated");
        return _randomNumbers[tokenId];
     }
 
     function getCityAndDescription(uint256 randomNumber) internal view returns (string memory city, string memory description) {
-    require(randomNumber < cities.length, "Numero casuale non valido");
+    require(randomNumber < cities.length, "Invalid random number");
     CityData memory data = cities[randomNumber];
     return (data.city, string(abi.encodePacked("A unique NFT representing the city of ", data.city, ". ", data.description)));
     }
 
     function getTokenMetadata(uint256 tokenId) public view returns (string memory name, string memory description, string memory city, string memory luckyNumber, string memory tourChance) {
         if (_ownerOf(tokenId) == address(0)) {
-        revert("Token non esistente");
+        revert("Token does not exist");
         }
-        require(_randomNumbers[tokenId] != UNSET, "Metadati non ancora generati");
+        require(_randomNumbers[tokenId] != UNSET, "Metadata not yet generated");
 
-        name = _tokenNames[tokenId];
+    name = _tokenNames[tokenId];
     description = _tokenDescriptions[tokenId];
     city = _tokenCities[tokenId];
     luckyNumber = Strings.toString(_tokenLuckyNumbers[tokenId]);
